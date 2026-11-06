@@ -180,6 +180,7 @@ jar {
 
 shadowJar {
     archiveClassifier.set(null)
+    zip64 = true
     mergeServiceFiles()
 }
 
