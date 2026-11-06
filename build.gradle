@@ -59,6 +59,14 @@ dependencies {
     implementation "org.apache.avro:avro:$avroVersion"
     implementation "org.apache.parquet:parquet-avro:1.15.2"
     implementation "org.apache.parquet:parquet-hadoop:1.15.2"
+
+    // SEC-0537: libthrift 0.9.3 is pulled transitively by hudi-common via com.uber.m3:tally-m3
+    constraints {
+        implementation("org.apache.thrift:libthrift") {
+            version { strictly "0.24.0" }
+            because "SEC-0537: fixes multiple high and medium CVEs in libthrift 0.9.3 (transitive via tally-m3)"
+        }
+    }
 }
 
 configurations.all {
