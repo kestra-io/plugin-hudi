@@ -66,6 +66,12 @@ dependencies {
             version { strictly "0.24.0" }
             because "SEC-0537: fixes multiple high and medium CVEs in libthrift 0.9.3 (transitive via tally-m3)"
         }
+
+        // SEC-0539: zookeeper 3.8.4 is pulled transitively by hadoop-common / hadoop-auth / curator-client
+        implementation("org.apache.zookeeper:zookeeper") {
+            version { strictly "3.8.6" }
+            because "SEC-0539: fixes server/client impersonation via reverse DNS spoofing in zookeeper 3.8.4 (transitive via hadoop and curator)"
+        }
     }
 }
 
