@@ -22,7 +22,7 @@ repositories {
 }
 
 final targetJavaVersion = JavaVersion.VERSION_21
-final avroVersion = "1.11.4"
+final avroVersion = "1.12.2"
 
 java {
     sourceCompatibility = targetJavaVersion
@@ -55,15 +55,15 @@ dependencies {
     // SEC-0300: rocksdbjni (GPL-2.0 / Apache-2.0 dual license) is only used by Hudi when RocksDB is explicitly selected
     // (hoodie.common.spillable.diskmap.type=ROCKS_DB or hoodie.filesystem.view.storage.type=EMBEDDED_KV_STORE).
     // Defaults are BITCASK and MEMORY, so it is excluded.
-    implementation("org.apache.hudi:hudi-java-client:1.2.0") {
+    implementation("org.apache.hudi:hudi-java-client:1.2.1") {
         exclude group: "org.rocksdb", module: "rocksdbjni"
     }
-    implementation "org.apache.hadoop:hadoop-common:3.4.3"
-    implementation "org.apache.hadoop:hadoop-client:3.4.3"
+    implementation "org.apache.hadoop:hadoop-common:3.5.0"
+    implementation "org.apache.hadoop:hadoop-client:3.5.0"
     implementation "com.esotericsoftware:kryo:5.7.1"
     implementation "org.apache.avro:avro:$avroVersion"
-    implementation "org.apache.parquet:parquet-avro:1.15.2"
-    implementation "org.apache.parquet:parquet-hadoop:1.15.2"
+    implementation "org.apache.parquet:parquet-avro:1.18.1"
+    implementation "org.apache.parquet:parquet-hadoop:1.18.1"
 
     // SEC-0537: libthrift 0.9.3 is pulled transitively by hudi-common via com.uber.m3:tally-m3
     constraints {
@@ -200,6 +200,7 @@ jar {
 shadowJar {
     archiveClassifier.set(null)
     mergeServiceFiles()
+    zip64 = true
 }
 
 /**********************************************************************************************************************\
