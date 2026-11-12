@@ -52,7 +52,12 @@ dependencies {
     compileOnly group: "io.kestra", name: "script", version: kestraVersion
 
     // Apache Hudi Java client
-    implementation "org.apache.hudi:hudi-java-client:1.2.0"
+    // SEC-0300: rocksdbjni (GPL-2.0 / Apache-2.0 dual license) is only used by Hudi when RocksDB is explicitly selected
+    // (hoodie.common.spillable.diskmap.type=ROCKS_DB or hoodie.filesystem.view.storage.type=EMBEDDED_KV_STORE).
+    // Defaults are BITCASK and MEMORY, so it is excluded.
+    implementation("org.apache.hudi:hudi-java-client:1.2.0") {
+        exclude group: "org.rocksdb", module: "rocksdbjni"
+    }
     implementation "org.apache.hadoop:hadoop-common:3.4.3"
     implementation "org.apache.hadoop:hadoop-client:3.4.3"
     implementation "com.esotericsoftware:kryo:5.7.1"
