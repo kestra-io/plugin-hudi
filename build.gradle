@@ -91,6 +91,11 @@ configurations.all {
     exclude group: "org.slf4j", module: "slf4j-log4j12"
     exclude group: "ch.qos.reload4j", module: "reload4j"
     exclude group: "log4j", module: "log4j"
+
+    // SEC-0140: org.lz4:lz4-java (abandoned at 1.8.0) comes via hudi-common; swap it for the maintained at.yawk fork.
+    resolutionStrategy.dependencySubstitution {
+        substitute module("org.lz4:lz4-java") using module("at.yawk.lz4:lz4-java:1.14.1") because "SEC-0140 lz4-java out-of-bounds vulnerabilities"
+    }
 }
 
 
