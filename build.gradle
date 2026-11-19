@@ -83,6 +83,12 @@ dependencies {
             version { strictly "1.1.10.12" }
             because "SEC-0370: fixes DoS via unbounded memory allocation in snappy-java < 1.1.10.9 (transitive via parquet-hadoop and hadoop-common)"
         }
+
+        // SEC-2111: jline 3.9.0 (aggregate jar embedding jline-remote-telnet) is pulled transitively by hadoop-yarn-client
+        implementation("org.jline:jline") {
+            version { strictly "3.30.14" }
+            because "SEC-2111: fixes CVE-2026-56740 and CVE-2026-56741 (Telnet server DoS) in jline-remote-telnet 3.9.0 (transitive via hadoop-yarn-client)"
+        }
     }
 }
 
