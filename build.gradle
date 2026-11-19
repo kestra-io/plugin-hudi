@@ -83,12 +83,6 @@ dependencies {
             version { strictly "1.1.10.12" }
             because "SEC-0370: fixes DoS via unbounded memory allocation in snappy-java < 1.1.10.9 (transitive via parquet-hadoop and hadoop-common)"
         }
-
-        // SEC-2111: jline 3.9.0 (aggregate jar embedding jline-remote-telnet) is pulled transitively by hadoop-yarn-client
-        implementation("org.jline:jline") {
-            version { strictly "3.30.14" }
-            because "SEC-2111: fixes CVE-2026-56740 and CVE-2026-56741 (Telnet server DoS) in jline-remote-telnet 3.9.0 (transitive via hadoop-yarn-client)"
-        }
     }
 }
 
@@ -97,6 +91,9 @@ configurations.all {
     exclude group: "org.slf4j", module: "slf4j-log4j12"
     exclude group: "ch.qos.reload4j", module: "reload4j"
     exclude group: "log4j", module: "log4j"
+
+    // SEC-2111: org.jline:jline 3.9.0 (embeds jline-remote-telnet, CVE-2026-56740/56741) comes via hadoop-yarn-client and is only used by the YARN CLI.
+    exclude group: "org.jline"
 
     // SEC-2389/2390/2391: platform BOM pins jetty 12.0.31 (jetty-server, jetty-http, jetty-security CVEs).
     // servlet/webapp stay on 9.4 (pulled by hadoop) since 12.0 has no such modules.
