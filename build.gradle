@@ -77,12 +77,6 @@ dependencies {
             version { strictly "3.8.6" }
             because "SEC-0539: fixes server/client impersonation via reverse DNS spoofing in zookeeper 3.8.4 (transitive via hadoop and curator)"
         }
-
-        // SEC-0370: snappy-java 1.1.10.8 is pulled transitively by parquet-hadoop and hadoop-common
-        implementation("org.xerial.snappy:snappy-java") {
-            version { strictly "1.1.10.12" }
-            because "SEC-0370: fixes DoS via unbounded memory allocation in snappy-java < 1.1.10.9 (transitive via parquet-hadoop and hadoop-common)"
-        }
     }
 }
 
